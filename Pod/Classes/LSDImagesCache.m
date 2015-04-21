@@ -12,49 +12,6 @@
 #import <SDWebImage/SDWebImageManager.h>
 
 
-@interface LSDDownloadOperation : NSOperation
-
-@property (nonatomic, readonly) NSURL *url;
-@property (nonatomic, copy, readonly) void(^completion)(NSURL *url, UIImage *image, NSError *error);
-
-- (instancetype)initWithURL : (NSURL *)imageUrl
-                 completion : (void(^)(NSURL *url, UIImage *image, NSError *error))completion;
-
-@end
-
-@implementation LSDDownloadOperation
-
-- (instancetype)initWithURL : (NSURL *)imageUrl
-                 completion : (void(^)(NSURL *url, UIImage *image, NSError *error))completion
-{
-    self = [super init];
-    if (self) {
-        _url = [imageUrl copy];
-        _completion = [completion copy];
-    }
-    return self;
-}
-
-- (void)main
-{
-    NSLog(@"start loading");
-    NSError *error = nil;
-    NSData *data = [NSData dataWithContentsOfURL:_url options:NSDataReadingMapped error:&error];
-    if (data) {
-        if (self.completion) {
-            self.completion(_url, [UIImage imageWithData:data], error);
-        }
-    } else {
-        if (self.completion) {
-            self.completion(_url, nil, error);
-        }
-    }
-}
-
-@end
-
-
-
 @implementation LSDImagesCache
 
 - (void)cacheImagesWithURLs : (NSArray *)URLs
