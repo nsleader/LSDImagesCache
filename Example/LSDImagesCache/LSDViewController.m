@@ -48,10 +48,12 @@
                                 } else {
                                     NSLog(@"%0.f x %0.f %@", image.size.width, image.size.height, url);
                                 }
+
                             }
                           completion:^(BOOL success) {
                               NSLog(@"Completion!");
                           }];
+
 }
 
 - (void)didReceiveMemoryWarning

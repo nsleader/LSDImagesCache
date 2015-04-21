@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LSDImagesCache"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "LSDImagesCache is a image downloader."
 #  s.description      = <<-DESC
 #                      An optional longer description of LSDImagesCache

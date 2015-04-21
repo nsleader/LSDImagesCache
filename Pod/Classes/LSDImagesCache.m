@@ -11,6 +11,12 @@
 #import "NSOperationQueue+LSDCompletion.h"
 #import <SDWebImage/SDWebImageManager.h>
 
+@interface LSDImagesCache ()
+
+@property (nonatomic) NSOperationQueue *operationQueue;
+
+@end
+
 
 @implementation LSDImagesCache
 
@@ -23,11 +29,18 @@
 
     SDImageCache *cache = [[SDWebImageManager sharedManager] imageCache];
 
-    NSOperationQueue *operationQueue = queue ?: [NSOperationQueue new];
+    if (queue) {
+        _operationQueue = queue;
+    } else {
+        _operationQueue = [NSOperationQueue new];
+        _operationQueue.maxConcurrentOperationCount = concurrent ? NSOperationQueueDefaultMaxConcurrentOperationCount : 1;
+
+    }
+
     for (NSURL *url in URLs) {
 
         NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-            
+
             UIImage *cachedImage = [cache imageFromMemoryCacheForKey:[url absoluteString]] ?: [cache imageFromDiskCacheForKey:[url absoluteString]];
             if (cachedImage) {
                 if (progress) {
@@ -57,16 +70,21 @@
             }
         }];
 
-        if (!concurrent && [operationQueue.operations count]) {
-            [operation addDependency:[operationQueue.operations lastObject]];
-        }
-        [operationQueue addOperation:operation];
+//        if (!concurrent && [_operationQueue.operations count]) {
+//            [operation addDependency:[_operationQueue.operations lastObject]];
+//        }
+        [_operationQueue addOperation:operation];
     }
-    [operationQueue setCompletion:^{
+    [_operationQueue setCompletion:^{
         if (completion) {
             completion(YES);
         }
     }];
+}
+
+- (void)cancel
+{
+    [_operationQueue cancelAllOperations];
 }
 
 

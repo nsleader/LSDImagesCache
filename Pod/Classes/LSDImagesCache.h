@@ -18,4 +18,6 @@
                    progress : (void(^)(NSURL *url, UIImage * image, NSError *error))progress
                  completion : (void(^)(BOOL success))completion;
 
+- (void)cancel;
+
 @end
