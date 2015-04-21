@@ -1,0 +1,30 @@
+{
+  "name": "LSDImagesCache",
+  "version": "0.1.0",
+  "summary": "A short description of LSDImagesCache.",
+  "description": "                       An optional longer description of LSDImagesCache\n\n                       * Markdown format.\n                       * Don't worry about the indent, we strip it!\n",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/LSDImagesCache",
+  "license": "MIT",
+  "authors": {
+    "nsleader": "rumandevelop@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/LSDImagesCache.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/*",
+  "resource_bundles": {
+    "LSDImagesCache": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "SDWebImage": [
+
+    ]
+  }
+}
