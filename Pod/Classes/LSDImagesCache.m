@@ -27,8 +27,7 @@
     for (NSURL *url in URLs) {
 
         NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-            NSLog(@"start loading");
-
+            
             UIImage *cachedImage = [cache imageFromMemoryCacheForKey:[url absoluteString]] ?: [cache imageFromDiskCacheForKey:[url absoluteString]];
             if (cachedImage) {
                 if (progress) {
